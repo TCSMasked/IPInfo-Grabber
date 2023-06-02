@@ -3,7 +3,7 @@ import requests, os, re # "requests" needs to be pip installed!
 ######################
 # CONFIGURATION VARS #
 ######################
-API_KEY = "679f691e1f7319412064a145e060769f" # You can register yourself a FREE API key here: https://ipapi.com/signup/free
+API_KEY = "API_KEY_HERE" # You can register yourself a FREE API key here: https://ipapi.com/signup/free
 
 def ConsoleClear():
     os.system('cls' if os.name=='nt' else 'clear')
