@@ -1,12 +1,24 @@
-import requests, os, re # "requests" needs to be pip installed!
+import requests, os, re, whois, dns.resolver
 
 ######################
 # CONFIGURATION VARS #
 ######################
-API_KEY = "API_KEY_HERE" # You can register yourself a FREE API key here: https://ipapi.com/signup/free
+API_KEY = "API_KEY_HERE" # You can register yourself a FREE API key here: https://ipstack.com/signup/free
 
 def ConsoleClear():
     os.system('cls' if os.name=='nt' else 'clear')
+
+def get_dns_records(domain):
+    records = []
+    record_types = ['A', 'AAAA', 'CNAME', 'MX', 'NS', 'TXT', 'SOA']
+    for record_type in record_types:
+        try:
+            answers = dns.resolver.resolve(domain, record_type)
+            for rdata in answers:
+                records.append((record_type, str(rdata)))
+        except dns.resolver.NoAnswer:
+            continue
+    return records
 
 def get_ip_info(ip):
     url = f"http://api.ipstack.com/{ip}?access_key={API_KEY}"
@@ -51,9 +63,33 @@ def IPInfo():
         print("Unable to fetch IP information.")
 
 def WebInfo():
-    #print("+------------------------+\n|     IP-Information     |\n|      Mode: Domain      |\n| Developed by TCSMasked |\n+------------------------+")
     ConsoleClear()
-    print("We're sorry, the module you have requested is still being developed.")
+    print("+------------------------+\n|     IP-Information     |\n|      Mode: Domain      |\n| Developed by TCSMasked |\n+------------------------+")
+    while True:
+        domain = input("Enter a domain name: ")
+        if domain:
+            break
+        else:
+            print("Invalid domain name. Please try again.")
+    try:
+        w = whois.whois(domain)
+        dns_records = get_dns_records(domain)
+        ConsoleClear()
+        print("+------------------------+\n|     IP-Information     |\n|      Mode: Domain      |\n| Developed by TCSMasked |\n+------------------------+")
+        print(f"Here is the information for the domain: {domain}")
+        print(f"Domain Name: {w.domain_name}")
+        print(f"Registrar: {w.registrar}")
+        print(f"Registration Date: {w.creation_date}")
+        print(f"Expiration Date: {w.expiration_date}")
+        print(f"Name Servers: {w.name_servers}")
+        print("DNS Records:")
+        for record_type, record_data in dns_records:
+            print(f"Type: {record_type}, Data: {record_data}")
+    except whois.parser.PywhoisError as e:
+        ConsoleClear()
+        print("+------------------------+\n|     IP-Information     |\n|      Mode: Domain      |\n| Developed by TCSMasked |\n+------------------------+")
+        print(f"Unable to fetch information for the domain: {domain}")
+        print(f"Error: {e}")
 
 def StartPrompt():
     ConsoleClear()
