@@ -47,5 +47,4 @@ For me, yes it is. However, I would suggest doing some research about your cyber
 Yes, this does not have an "IP Blacklist". Any real public IPv4 address will return some sort of data back.
 
 ## Contributing / Feedback
-If you would like to add feedback on this project or feel like helping us out by giving us code, you can find contact the owner multiple ways, however the best and most effective way would be via Discord. You can join the Discord server and contact "TCSMasked" via text channels about this project there. You can join using this link:
-**https://discord.maskednet.org/**
+If you would like to add feedback on this project or feel like helping us out by giving us code, you can find contact the owner multiple ways, however the best and most effective way would be via Discord. You can join the Discord server and contact "TCSMasked" via text channels about this project there. You can join **[here](https://maskednet.org/discord)**.
